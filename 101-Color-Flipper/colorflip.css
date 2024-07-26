@@ -1,0 +1,30 @@
+* {
+    padding : 0;
+    margin : 0;
+    font-family : Poppins;
+}
+.main-container {
+    /* background-color : blue; */
+    height : 300px;
+    width : 300px;
+    padding : 10px;
+    margin-inline : auto;
+    margin-block : 50px;
+}
+.color-container {
+    background-color : red;
+    width : 100%;
+    height : 100%;
+    display : flex;
+    align-items : center;
+    justify-content : center;
+}
+.color-flip-button {
+    border :  2px solid black;
+    background-color : transparent;
+    width : 100px;
+    padding : 10px;
+    font-size : 20px;
+    text-align : center;
+    color : black;
+}
