@@ -1,6 +1,135 @@
+
+
+:root {
+    --header-color1: #B99527;
+    --body-color1 : #33290A;
+    --body-color2 : #775F18;
+    --body-color3 : #33290A;
+    --rightheader-font : "Edu AU VIC WA NT Hand", cursive;
+    --fontfamily-font1 : "Dancing Script", cursive;
+    
+}
+
 * {
     padding : 0;
     margin : 0;
     box-sizing : border-box;
+}
+body {
+    /* margin : auto 0; */
+    margin : 0 auto;
+    background: linear-gradient(135deg, var(--body-color1) 0%, var(--body-color2) 50%, var(--body-color3) 80%);
+    /* overflow : hidden; */
+    min-height : 100vh;
+    
+}
+header {
+    background-color: var(--header-color1);
+    height : 100px;
+    width : 100vw; 
+    display : flex;
+    align-items : center;
+    justify-content : space-between;
+    position : fixed;
+    top:0;
+    left: 0;
+    right : 0;
+    z-index : 2;
+}
+.right-header {
+    /* background-color : red; */
+    font-family:var(--rightheader-font);
+    font-size : 25px;
+    font-weight : 400px;
+    /* color : blue; */
+    flex-grow : 1;
+  
+}
+.left-header {
+    flex-grow : 2;
+    /* background-color : yellow; */
+    display : flex;
+    align-items : center;
+    justify-content :flex-end;
 
+   
+    
+}
+.left-header a{
+    margin-right : 20px;
+    text-decoration : none;
+    font-size : 18px;
+    color : white;
+}
+.middle-header img {
+    height : auto;
+    width : 150px;
+    flex-grow : 1;
+    padding-top : 20px;
+    transition : bounce 0.2s ease;
+}
+.middle-header img:hover {
+    transform : scale(1.2);
+}
+.main-container {
+    z-index : 1;
+    padding-top : 100px;
+}
+.About {
+    display : grid;
+    grid-template-columns : 1fr 1fr;
+    place-items : center;
+    margin-bottom : 50px;
+}
+.intro-img img{
+    width: 500px;
+    height : auto;
+}
+.h2-intro {
+    display : inline-block;
+    font-family : var(--fontfamily-font1);
+    margin-bottom : 100px;
+    color : white;
+    font-size : 60px;
+    box-shadow: 10px 0px 10px 5px rgb(129, 139, 40);
+}
+.intro p {
+    font-family : var(--fontfamily-font1);
+    line-height : 1.5;
+    font-size : 30px;
+    color : rgb(182, 165, 165);
+}
+.fav-headline {
+    display : grid;
+    grid-template-columns : 1fr 1fr;
+    place-items: center;
+    margin-block : 20px;
+}
+.fav-headline h2 {
+    grid-column: 1 / -1;
+    font-size : 40px;
+}
+.img {
+    width : 300px;
+    height : auto;
+}
+.fav-photos {
+    display : flex;
+    align-items : center;
+    justify-content:center;
+    
+
+}
+.fav-photos img {
+    margin-right : 15px;
+    border-radius : 10px;
+}
+.favourites {
+    display : flex;
+}
+.favourites button {
+    color : white;
+    font-size : 30px;
+    width : 40px;
+    height : 40px;
 }
