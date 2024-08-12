@@ -1,4 +1,4 @@
-const albumData = [
+export const albumData = [
     {
         src : "Image-collections/floods.jpg",
         text : "This photo captures a significant moment during the recent flood at our school"
