@@ -30,6 +30,7 @@ header {
     display : flex;
     align-items : center;
     justify-content : space-between;
+    padding-inline : 20px;
     position : fixed;
     top:0;
     left: 0;
@@ -84,6 +85,7 @@ header {
 .intro-img img{
     width: 500px;
     height : auto;
+    border-radius : 20px;
 }
 .h2-intro {
     display : inline-block;

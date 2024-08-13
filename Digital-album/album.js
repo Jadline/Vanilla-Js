@@ -1,3 +1,5 @@
+import { albumData } from "./albumdata.js"
+
 document.addEventListener ('DOMContentLoaded', () => {
     const texts = {
         h2 : "Welcome to Jaddie's Collage",
@@ -58,6 +60,7 @@ const fav = [
 
 
 const nextButton = document.querySelector('.next-button')
+
 let currentIndex = 0
 
 nextButton.addEventListener('click' ,() => {
@@ -80,3 +83,28 @@ nextButton.addEventListener('click' ,() => {
     
 
 })
+const rightButton = document.querySelector('.right-button')
+const leftButton = document.querySelector('.left-button')
+
+let currentPhotoIndex = 0
+
+
+function displayPhoto(currentPhotoIndex){
+    const currentPhoto = albumData[currentPhotoIndex]
+
+    let photoHTML = ""
+
+    photoHTML += `<img  class="placeholder-image"  src="${currentPhoto.src}"/>`
+
+    document.querySelector('.image-holder').innerHTML = photoHTML
+}
+
+rightButton.addEventListener('click',() => {
+    currentPhotoIndex = (currentPhotoIndex + 1) % albumData.length
+    displayPhoto(currentPhotoIndex)
+})
+leftButton.addEventListener('click',() => {
+    currentPhotoIndex = ((currentPhotoIndex - 1) + albumData.length) %  albumData.length
+    displayPhoto(currentPhotoIndex)
+})
+

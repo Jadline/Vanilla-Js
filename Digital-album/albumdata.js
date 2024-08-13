@@ -15,7 +15,7 @@ export const albumData = [
 
     },
     {
-        src : "Image-collections/research.jpg",
+        src : "Image-collections/researchtree.jpg",
         text :"I took this photo outside R & D delmonte kenya.Kind of made me really happy "
     },
     {
