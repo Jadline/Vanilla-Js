@@ -7,14 +7,42 @@ playlistData.forEach((song) => {
 
     songsHTML += `
         <div class="song-content">
-                <button class="song-data"><span class="song-title">${song.title}</span> <span class="song-artist">${formattedArtist}</span> <span class="song-duration">${song.duration}</span></button>
+                <button class="song-data" data-song-id="${song.id}"><span class="song-title">${song.title}</span> <span class="song-artist">${formattedArtist}</span> <span class="song-duration">${song.duration}</span></button>
         </div>
     `
     
 })
 document.querySelector('.song-container').innerHTML = songsHTML;
 
-const song = document.querySelector('.song-data')
-song.addEventListener('click',() => {
-    console.log(song)
+const songButtons = document.querySelectorAll('.song-data')
+
+
+songButtons.forEach((button) => {
+    button.addEventListener('click',() =>{
+        const songId = button.dataset.songId
+
+        const imgElement = document.querySelector('.background-image')
+        // const currentSrc = imgElement.getAttribute('src')
+
+        songButtons.forEach((button) => {
+            button.classList.remove("button-change");
+        })
+
+        let matchingSong =""
+
+        playlistData.forEach((song) => {
+            if (song.id === songId){
+                matchingSong = song
+                imgElement.src = matchingSong.imagesrc;
+                button.classList.add("button-change");
+                // button.style.backgroundColor = "#d55d92";
+                // button.style.Color = "#47126b";
+    
+            }
+        })
+        
+        
+        
+    })
 })
+
