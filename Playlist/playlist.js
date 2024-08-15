@@ -15,34 +15,48 @@ playlistData.forEach((song) => {
 document.querySelector('.song-container').innerHTML = songsHTML;
 
 const songButtons = document.querySelectorAll('.song-data')
+const audio = new Audio()
 
+function highlightSong() {
+    songButtons.forEach((button) => {
+        button.addEventListener('click',() =>{
+            const songId = button.dataset.songId
 
-songButtons.forEach((button) => {
-    button.addEventListener('click',() =>{
-        const songId = button.dataset.songId
+            const imgElement = document.querySelector('.background-image')
+            // const currentSrc = imgElement.getAttribute('src')
 
-        const imgElement = document.querySelector('.background-image')
-        // const currentSrc = imgElement.getAttribute('src')
+            songButtons.forEach((button) => {
+                button.classList.remove("button-change");
+            })
 
-        songButtons.forEach((button) => {
-            button.classList.remove("button-change");
+            let matchingSong =""
+
+            playlistData.forEach((song) => {
+                if (song.id === songId){
+                    matchingSong = song
+                    imgElement.src = matchingSong.imagesrc;
+                    button.classList.add("button-change");
+                    // console.log(matchingSong.src)
+                    audio.src = matchingSong.src
+                    audio.play()
+                    // button.style.backgroundColor = "#d55d92";
+                    // button.style.Color = "#47126b";
+        
+                }
+            })
+            
+            
+            
         })
-
-        let matchingSong =""
-
-        playlistData.forEach((song) => {
-            if (song.id === songId){
-                matchingSong = song
-                imgElement.src = matchingSong.imagesrc;
-                button.classList.add("button-change");
-                // button.style.backgroundColor = "#d55d92";
-                // button.style.Color = "#47126b";
-    
-            }
-        })
-        
-        
-        
     })
-})
+}
+highlightSong()
+
+const previousButton = document.querySelector('.previous-button')
+const playButton = document.querySelector('.play-button')
+const nextButton = document.querySelector('.next-button')
+const shuffleButton = document.querySelector('.shuffle-button')
+
+
+
 
