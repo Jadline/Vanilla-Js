@@ -4,9 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Playlist</title>
+    <link rel="stylesheet" href="playlist.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 <body>
-    <div>
+    <div class="main-container">
+        <div class="playlist-container"> 
+            <div class="display-image">
+                <div class="progress-container">
+                    <button class="music">
+                        <i class="fa-solid fa-music"></i>
+                    </button>
+                    <div class="progress-bar"></div>
+                    <div class="time">4:00</div>
+                </div>
+                <img  class="background-image"   src="https://cdnaws.recis.io/i/img/01/2c/d2/6c_9b6577_w320.jpg"/>
+            
+                <button class="previous-button button">
+                    <i class="fa-solid fa-backward"></i>
+                </button>
+                <button class="play-button button">
+                    <i class="fa-solid fa-play"></i>
+                </button>    
+                <button class="next-button button">
+                    <i class="fa-solid fa-forward-fast"></i>
+                </button> 
+                <button class="shuffle-button button">
+                    <i class="fa-solid fa-shuffle"></i>
+                </button>
+           
+            </div>
+        </div>
+            
+        <div class="song-container">
+            <div class="song-content">
+                <button><span class="song-title">Bigger Person</span> <span class="song-artist">Lauren Spencer Smith</span> <span class="song-duration">2.41</span></button>
+                </div>
+            <div class="song-content">
+                <button><span class="song-title">Flowers</span> <span class="song-artist">Lauren Spencer Smith</span> <span class="song-duration">2.45</span></button>
+                </div>
+            <div class="song-content">
+                <button><span class="song-title">28</span> <span class="song-artist">Ruth B</span> <span class="song-duration">3.32</span></button>
+            </div>
+            <div class="song-content">
+                <button><span class="song-title">What about us</span> <span class="song-artist">Pink</span> <span class="song-duration">4.29</span></button>
+            </div>
+            <div class="song-content">
+                <button><span class="song-title">Rescue</span> <span class="song-artist">Lauren Daigle</span> <span class="song-duration">3.36</span></button>
+            </div>
+
+
+            </div>
+
+        </div>
         
     </div>
     <script src="playlist.js"></script>
