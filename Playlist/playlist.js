@@ -90,69 +90,72 @@ audio.addEventListener('ended',() => {
     timeDisplay.innerHTML = '0:00'
 })
 
-// function highlightSong() {
-//     songButtons.forEach((button) => {
-//         button.addEventListener('click',() =>{
-//             const songId = button.dataset.songId
 
-//             const imgElement = document.querySelector('.background-image')
-//             // const currentSrc = imgElement.getAttribute('src')
 
-//             songButtons.forEach((button) => {
-//                 button.classList.remove("button-change");
-//             })
+const previousButton = document.querySelector('.previous-button')
+const playButton = document.querySelector('.play-button')
+const nextButton = document.querySelector('.next-button')
+const shuffleButton = document.querySelector('.shuffle-button')
 
-//             let matchingSong =""
+function sortSongs(){
+    playlistData.sort((a,b) =>{
+        if(a.name < b.name){
+            return -1;
+        }
+        if(a.name > b.name){
+            return 1;
+        }
+        return 0;
+    })
+    return playlistData
 
-//             playlistData.forEach((song) => {
-//                 if (song.id === songId){
-//                     matchingSong = song
-//                     imgElement.src = matchingSong.imagesrc;
-//                     time.innerHTML = matchingSong.duration;
-                    
-//                     button.classList.add("button-change");
-//                     // console.log(matchingSong.src)
-//                     audio.src = matchingSong.src
-//                     audio.addEventListener('timeupdate',updateProgressBar)
-//                     audio.play()
-//                     audio.addEventListener('ended',() => {
-//                         progressBar.style.width = "0%";
-//                     })
-//                     // button.style.backgroundColor = "#d55d92";
-//                     // button.style.Color = "#47126b";
-        
-//                 }
-//             })
+}
 
-//             function updateProgressBar() {
-//                 audio.duration = matchingSong.duration
 
-//                 if(audio.duration){
-//                     const percentage = (audio.currentTime/audio.duration) * 100
-//                     progressBar.style.width = `${percentage}`
-//                 }
+function playSong(){
+    const sortedSongs = sortSongs()
 
-//             }
-           
+    let currentSongIndex = 0
+  
+
+    function playNextSong(){
+        if(currentSongIndex < sortedSongs.length){
+            const song = sortedSongs[currentSongIndex]
+            imgElement.src = song.imagesrc
+            audio.src = song.src
+            audio.play()
+
+            audio.removeEventListener('ended',onSongEnd)
+            audio.addEventListener('ended',onSongEnd)
 
             
 
-            
-            
-            
-            
-            
-//         })
-//     })
-// }
-// highlightSong()
+            updateProgressBar()
+        }
+    }
+    function onSongEnd(){
+        currentSongIndex++;
+         playNextSong()
 
-// const previousButton = document.querySelector('.previous-button')
-// const playButton = document.querySelector('.play-button')
-// const nextButton = document.querySelector('.next-button')
-// const shuffleButton = document.querySelector('.shuffle-button')
+    }
+    playNextSong()
+}
 
 
-    
 
+const pauseBtn = playButton.querySelector('.fa-play')
+const playBtn = playButton.querySelector('.fa-pause')
 
+pauseBtn.addEventListener('click', () =>{
+    pauseBtn.style.display = "none"
+    playBtn.style.display = 'inline'
+    playSong()
+
+})
+function updateTimeDisplay() {
+    const minutes = Math.floor(audio.currentTime / 60);
+    const seconds = Math.floor(audio.currentTime % 60);
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+    const formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+    timeDisplay.innerHTML = `${formattedMinutes}:${formattedSeconds}`;
+}
