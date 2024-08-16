@@ -76,10 +76,11 @@ function updateProgressBar(){
         const remainingTime = duration - currentTime 
         const minutes = Math.floor(remainingTime/60);
         const seconds = Math.floor(remainingTime % 60)
+        const formattedminutes = minutes < 10 ? `0${minutes}` : `${minutes}`
         const formattedseconds = seconds < 10 ? `0${seconds}` : `${seconds}`
 
 
-        const formattedTime = `${minutes}:${formattedseconds}`
+        const formattedTime = `${formattedminutes}:${formattedseconds}`
         timeDisplay.innerHTML = formattedTime
     }
 }
