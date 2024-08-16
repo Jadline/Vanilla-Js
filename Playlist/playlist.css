@@ -68,12 +68,26 @@
   .progress-bar {
     width : 200px;
     height : 5px;
-    background-color : #FFC7BA;
+    background-color : #ee866e;
     border-radius : 5px;
+    position : relative;
+   
+
   }
+  .progress-bar::after {
+    content: "";
+    height: 100%; /* Match the height of the parent */
+    background-color: #FFFFFF; /* White color for the progress fill */
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width : var(--progress-width,0%);
+    transition: width 0.2s ease; /* Smooth transition for width change */
+}
   .time {
     color : #FF6FA5;
-
+    font-size : 14px;
   }
 
   .music {
