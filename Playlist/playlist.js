@@ -32,18 +32,46 @@ function getMatchingSong(songId){
    return matchingSong
 }
 
+let isPlaying = false;
+let currentSongId = null;
+
 function highlightSong(matchingSong,button){
      if(matchingSong){
+
+        if (isPlaying && currentSongId === matchingSong.id) {
+           
+            return;
+        }
+
+       
+        if (isPlaying) {
+          
+            audio.pause();
+            isPlaying = false;
+            playBtn.style.display = 'inline';
+            pauseBtn.style.display = 'none';
+         
+          
+           
+        }
+
+        
         imgElement.src = matchingSong.imagesrc;
-        audio.src = matchingSong.src
-        audio.play()
+        audio.src = matchingSong.src;
+        audio.play(); 
+        isPlaying = true; 
+        currentSongId = matchingSong.id; 
+
+
+        songButtons.forEach((button) => {
+            button.classList.remove("button-change");
+    
+        })
+        button.classList.add("button-change");
+        updatePlayPauseButtons()
 
     }
-    songButtons.forEach((button) => {
-        button.classList.remove("button-change");
-
-    })
-    button.classList.add("button-change");
+    
     
 
 
@@ -88,6 +116,7 @@ audio.addEventListener('timeupdate',updateProgressBar)
 audio.addEventListener('ended',() => {
     progressBar.style.setProperty('--progress-width','0%') 
     timeDisplay.innerHTML = '0:00'
+    playNextSong()
 })
 
 
@@ -98,48 +127,43 @@ const nextButton = document.querySelector('.next-button')
 const shuffleButton = document.querySelector('.shuffle-button')
 
 function sortSongs(){
-    playlistData.sort((a,b) =>{
-        if(a.name < b.name){
-            return -1;
-        }
-        if(a.name > b.name){
-            return 1;
-        }
-        return 0;
-    })
-    return playlistData
+    return playlistData.slice().sort((a, b) => a.title.localeCompare(b.title)); // Corrected sorting to use titles
 
 }
 
 
-function playSong(){
-    const sortedSongs = sortSongs()
+// let currentSongIndex = 0
+// function playSong(){
+//     const sortedSongs = sortSongs()
 
-    let currentSongIndex = 0
   
 
-    function playNextSong(){
-        if(currentSongIndex < sortedSongs.length){
-            const song = sortedSongs[currentSongIndex]
-            imgElement.src = song.imagesrc
-            audio.src = song.src
-            audio.play()
-
-            audio.removeEventListener('ended',onSongEnd)
-            audio.addEventListener('ended',onSongEnd)
+//     function playNextSong(){
+//         if(currentSongIndex < sortedSongs.length){
+//             const song = sortedSongs[currentSongIndex]
+//             imgElement.src = song.imagesrc
+//             audio.src = song.src
+//             audio.play()
 
             
 
-            updateProgressBar()
-        }
-    }
-    function onSongEnd(){
-        currentSongIndex++;
-         playNextSong()
+           
 
-    }
-    playNextSong()
-}
+//             audio.removeEventListener('ended',onSongEnd)
+//             audio.addEventListener('ended',onSongEnd)
+
+            
+
+//             updateProgressBar()
+//         }
+//     }
+//     function onSongEnd(){
+//         currentSongIndex++;
+//          playNextSong()
+
+//     }
+//     playNextSong()
+// }
 
 
 
@@ -147,9 +171,17 @@ const pauseBtn = playButton.querySelector('.fa-play')
 const playBtn = playButton.querySelector('.fa-pause')
 
 pauseBtn.addEventListener('click', () =>{
-    pauseBtn.style.display = "none"
-    playBtn.style.display = 'inline'
-    playSong()
+    if (!isPlaying) {     
+        updatePlayPauseButtons()
+        playCurrentSong()
+        // audio.play();
+        isPlaying = true;
+       
+       
+    }
+    // playBtn.style.display = 'inline'; 
+    // pauseBtn.style.display = 'none';
+    // playCurrentSong()
 
 })
 function updateTimeDisplay() {
@@ -159,3 +191,82 @@ function updateTimeDisplay() {
     const formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
     timeDisplay.innerHTML = `${formattedMinutes}:${formattedSeconds}`;
 }
+
+
+playBtn.addEventListener ('click',() => {
+    if(isPlaying){
+        audio.pause();
+        isPlaying = false;
+        updatePlayPauseButtons()
+    }
+    // audio.pause()
+
+
+    // playBtn.style.display = 'none'; 
+    // pauseBtn.style.display = 'inline'; 
+
+    // updateProgressBar()
+    // updateTimeDisplay()
+
+
+})
+
+let currentSongIndex = 0
+
+function playCurrentSong(){
+    const sortedSongs = sortSongs();
+    if(sortedSongs.length > 0  && currentSongIndex < sortedSongs.length) {
+        const song = sortedSongs[currentSongIndex]
+        imgElement.src = song.imagesrc;
+        audio.src = song.src;
+        audio.play(); 
+
+        isPlaying = true;
+        updatePlayPauseButtons()
+        updateProgressBar();
+        
+        
+
+        audio.removeEventListener('ended',onSongEnd)
+        audio.addEventListener('ended',onSongEnd)
+
+            
+
+        updateProgressBar()
+
+
+}
+}
+function playNextSong(){
+    const sortedSongs = sortSongs();
+    if(sortedSongs.length > 0){
+        currentSongIndex = (currentSongIndex + 1) % sortedSongs.length
+        playCurrentSong()
+
+    }
+}
+
+function playPreviousSong(){
+    const sortedSongs = sortSongs();
+    if(sortedSongs.length > 0) {
+        currentSongIndex = (currentSongIndex - 1 + sortedSongs.length) % sortedSongs.length;
+        playCurrentSong()
+    }
+}
+function onSongEnd(){
+    playNextSong()
+}
+previousButton.addEventListener('click',playPreviousSong)
+nextButton.addEventListener('click',playNextSong)
+
+function updatePlayPauseButtons() {
+    if (isPlaying) {
+        playBtn.style.display = 'none'; // Hide play button
+        pauseBtn.style.display = 'inline'; // Show pause button
+    } else {
+        pauseBtn.style.display = 'none'; // Hide pause button
+        playBtn.style.display = 'inline'; // Show play button
+        
+    }
+}
+
